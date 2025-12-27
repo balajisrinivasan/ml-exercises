@@ -6,8 +6,13 @@ import matplotlib.pyplot as plt
 from pandas.plotting import scatter_matrix
 import urllib.request 
 
+from src.config.paths import (
+    HOUSING_CSV,
+    CALIFORNIA_IMAGE
+)
+
 def main():
-    housing_full = pd.read_csv(Path("datasets/housing/housing.csv"))
+    housing_full = pd.read_csv(HOUSING_CSV)
     
     # stratfied sampling
     housing_full["income_cat"] = pd.cut(
@@ -47,13 +52,11 @@ def main():
     )
     #plt.show()
 
-    filename = "california.png"
-    filepath = Path(f"my_{filename}")
-    if not filepath.is_file():
+    if not CALIFORNIA_IMAGE.is_file():
         homlp_root = "https://github.com/ageron/handson-mlp/raw/main/"
-        url = homlp_root + "images/end_to_end_project/" + filename
-        print("downloading", filename)
-        urllib.request.urlretrieve(url, filepath)
+        url = homlp_root + "images/end_to_end_project/california.png"
+        print("downloading image")
+        urllib.request.urlretrieve(url, CALIFORNIA_IMAGE)
 
     housing_renamed = housing.rename(columns={
         "latitude": "Latitude", "longitude": "Longitude",
@@ -67,7 +70,7 @@ def main():
         legend=True, sharex=False, figsize=(10, 7)
     )
 
-    california_img = plt.imread(filepath)
+    california_img = plt.imread(CALIFORNIA_IMAGE)
     axis = -124.55, -113.95, 32.45, 42.05
     plt.axis(axis)
     plt.imshow(california_img, extent=axis)

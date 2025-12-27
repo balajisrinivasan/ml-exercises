@@ -5,6 +5,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 
+from src.config.paths import (
+    HOUSING_CSV
+)
+
 def shuffle_and_split_data(data, test_ratio, rng):
     shuffled_indices = rng.permutation(len(data))
     test_set_size = int(len(data) * test_ratio)
@@ -21,7 +25,7 @@ def split_data_with_id_hash(data, test_ratio, id_column):
     return data.loc[~in_test_set], data.loc[in_test_set]
 
 def main():
-    housing_full = pd.read_csv(Path("datasets/housing/housing.csv"))
+    housing_full = pd.read_csv(HOUSING_CSV)
     housing_with_id = housing_full.reset_index()
     housing_with_id["id"] = (housing_full["longitude"] * 1000 + housing_full["latitude"])
 
