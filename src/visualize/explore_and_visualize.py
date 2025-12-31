@@ -41,16 +41,16 @@ def main():
         c="median_house_value", cmap="jet", colorbar=True,
         legend=True, sharex=False, figsize=(10,7)
     )
-    #plt.show()
+    plt.show()
 
     attributes = ["median_house_value", "median_income", "total_rooms", "housing_median_age"]
     scatter_matrix(housing[attributes], figsize=(12, 8))
-    #plt.show()
+    plt.show()
 
     housing.plot(
         kind="scatter", x="median_income", y="median_house_value", alpha=0.1, grid=True
     )
-    #plt.show()
+    plt.show()
 
     if not CALIFORNIA_IMAGE.is_file():
         homlp_root = "https://github.com/ageron/handson-mlp/raw/main/"
